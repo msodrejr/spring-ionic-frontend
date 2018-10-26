@@ -11,6 +11,15 @@
 
 
 <ion-content padding>
-  <p>Página de Categorias</p>
+    <ion-list>
+      <!--*ngFor funciona como o ForEach. let x of list-->
+      <!--items é a variável de CategoriaDTO do controlador.-->
+        <button ion-item *ngFor="let item of items">
+          <ion-thumbnail item-start>
+            <img src="{{bucketUrl}}/cat{{item.id}}.jpg">
+          </ion-thumbnail>
+          <h2>{{item.nome}}</h2>
+        </button>
+      </ion-list>
 
 </ion-content>
