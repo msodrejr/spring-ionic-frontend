@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CidadeService } from '../../services/domain/cidade.service';
 import { EstadoService } from '../../services/domain/estado.service';
 import { EstadoDTO } from '../../models/estado.dto';
 import { CidadeDTO } from '../../models/cidade.dto';
+import { ClienteService } from '../../services/domain/cliente.service';
 
 
 @IonicPage()
@@ -23,7 +24,9 @@ export class SignupPage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public cidadeService: CidadeService,
-    public estadoService: EstadoService
+    public estadoService: EstadoService,
+    public clienteService: ClienteService,
+    public alertCtrl: AlertController
   ) {
 
     this.formGroup = formBuilder.group({
@@ -45,9 +48,6 @@ export class SignupPage {
     })
   }
 
-  signupUser() {
-    console.log('Enviou o form');
-  }
   ionViewDidLoad() {
     this.estadoService.findAll()
       .subscribe(response => {
@@ -56,6 +56,7 @@ export class SignupPage {
         this.updateCidades();
       }, error => { })
   }
+
   updateCidades() {
     let estado_id = this.formGroup.value.estadoId;
     this.cidadeService.findCitiesFromState(estado_id)
@@ -63,5 +64,30 @@ export class SignupPage {
         this.cidades = response;
         this.formGroup.controls.cidadeId.setValue(null);
       }, error => { });
+  }
+
+  signupUser() {
+    this.clienteService.insert(this.formGroup.value)
+      .subscribe(response => {
+        this.showInsertOk();
+      },
+        error => { })
+  }
+
+  showInsertOk(): any {
+    let alert = this.alertCtrl.create({
+      title: 'Sucesso',
+      message: 'Cadastro efetuado com sucesso',
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }
