@@ -14,7 +14,7 @@
     <ion-list>
       <!--*ngFor funciona como o ForEach. let x of list-->
       <!--items é a variável de CategoriaDTO do controlador.-->
-        <button ion-item *ngFor="let item of items">
+        <button ion-item *ngFor="let item of items" (click)="showProdutos()">
           <ion-thumbnail item-start>
             <img src="{{bucketUrl}}/cat{{item.id}}.jpg">
           </ion-thumbnail>
