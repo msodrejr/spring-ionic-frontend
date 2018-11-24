@@ -11,15 +11,15 @@
 
 
 <ion-content padding>
-    <ion-list>
-      <!--*ngFor funciona como o ForEach. let x of list-->
-      <!--items é a variável de CategoriaDTO do controlador.-->
-        <button ion-item *ngFor="let item of items" (click)="showProdutos()">
-          <ion-thumbnail item-start>
-            <img src="{{bucketUrl}}/cat{{item.id}}.jpg">
-          </ion-thumbnail>
-          <h2>{{item.nome}}</h2>
-        </button>
-      </ion-list>
+  <ion-list>
+    <!--*ngFor funciona como o ForEach. let x of list-->
+    <!--items é a variável de CategoriaDTO do controlador.-->
+    <button ion-item *ngFor="let item of items" (click)="showProdutos(item.id)">
+      <ion-thumbnail item-start>
+        <img src="{{bucketUrl}}/cat{{item.id}}.jpg">
+      </ion-thumbnail>
+      <h2>{{item.nome}}</h2>
+    </button>
+  </ion-list>
 
 </ion-content>

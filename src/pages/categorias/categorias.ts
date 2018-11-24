@@ -12,13 +12,13 @@ import { API_CONFIG } from '../../config/api.config';
 export class CategoriasPage {
 
   bucketUrl: string = API_CONFIG.bucketBaseUrl;
-  
+
   items: CategoriaDTO[];
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public categoriaService : CategoriaService) {
+    public categoriaService: CategoriaService) {
   }
 
   //response e error são funções anônimas. Utilizadas para a resposta CallBack
@@ -26,12 +26,11 @@ export class CategoriasPage {
     this.categoriaService.findAll().subscribe(response => {
       this.items = response;
     },
-    error => {
-    });
+      error => {
+      });
   }
 
-  showProdutos(){
-    this.navCtrl.push('ProdutosPage');
+  showProdutos(categoria_id: string) {
+    this.navCtrl.push('ProdutosPage', { categoria_id: categoria_id });
   }
-
 }
